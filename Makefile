@@ -17,3 +17,11 @@ install-dev:
 start:
 	python3 -m src.main
 .PHONY: .start
+
+build:
+	docker build -t chatgpt-translator:0.1.0 .
+.PHONY: .build
+
+start-container:
+	docker run --rm --name chatgpt-translator -p 8000:8000 chatgpt-translator:0.1.0
+.PHONY: .start-container
