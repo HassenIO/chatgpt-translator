@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 requires-python = ">=3.9"
 name = "chatgpt-translator"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
     "requests",
     "uvicorn",

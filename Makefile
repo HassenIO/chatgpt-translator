@@ -1,27 +1,19 @@
-compile-dev:
-	pip-compile --extra dev -o dev-requirements.txt pyproject.toml
-.PHONY: .compile-dev
-
-compile:
-	pip-compile -o requirements.txt pyproject.toml
-.PHONY: .compile
+version := $(shell grep -E '^version\s*=' pyproject.toml | cut -d '"' -f 2)
 
 install:
-	pip install -r requirements.txt
-.PHONY: .install
+	@pip-compile -o requirements.txt pyproject.toml
+	@pip-compile --extra dev -o dev-requirements.txt pyproject.toml
+	@pip install -r dev-requirements.txt
+.PHONY: install
 
-install-dev:
-	pip install -r dev-requirements.txt
-.PHONY: .install
+build:
+	docker build -t chatgpt-translator:$(version) .
+.PHONY: build
 
 start:
 	python3 -m src.main
-.PHONY: .start
-
-build:
-	docker build -t chatgpt-translator:0.1.0 .
-.PHONY: .build
+.PHONY: start
 
 start-container:
-	docker run --rm --name chatgpt-translator -p 8000:8000 chatgpt-translator:0.1.0
-.PHONY: .start-container
+	docker run --rm --name chatgpt-translator -p 8000:8000 chatgpt-translator:$(version)
+.PHONY: start-container
