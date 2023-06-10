@@ -9,7 +9,9 @@ aiohttp==3.8.4
 aiosignal==1.3.1
     # via aiohttp
 anyio==3.7.0
-    # via starlette
+    # via
+    #   httpcore
+    #   starlette
 async-timeout==4.0.2
     # via aiohttp
 attrs==23.1.0
@@ -17,7 +19,10 @@ attrs==23.1.0
 black==23.3.0
     # via chatgpt-translator (pyproject.toml)
 certifi==2023.5.7
-    # via requests
+    # via
+    #   httpcore
+    #   httpx
+    #   requests
 charset-normalizer==3.1.0
     # via
     #   aiohttp
@@ -33,10 +38,17 @@ frozenlist==1.3.3
     #   aiohttp
     #   aiosignal
 h11==0.14.0
-    # via uvicorn
+    # via
+    #   httpcore
+    #   uvicorn
+httpcore==0.17.2
+    # via httpx
+httpx==0.24.1
+    # via chatgpt-translator (pyproject.toml)
 idna==3.4
     # via
     #   anyio
+    #   httpx
     #   requests
     #   yarl
 iniconfig==2.0.0
@@ -68,7 +80,10 @@ requests==2.31.0
     #   chatgpt-translator (pyproject.toml)
     #   openai
 sniffio==1.3.0
-    # via anyio
+    # via
+    #   anyio
+    #   httpcore
+    #   httpx
 starlette==0.27.0
     # via fastapi
 tqdm==4.65.0

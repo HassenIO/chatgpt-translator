@@ -10,12 +10,16 @@ format:
 	@black .
 .PHONY: format
 
+test:
+	PYTHONPATH=$(shell pwd) pytest
+.PHONY: test
+
 build:
 	docker build -t chatgpt-translator:$(version) .
 .PHONY: build
 
 start:
-	python3 -m src.main
+	PYTHONPATH=$(shell pwd)/src  python3 -m src.main
 .PHONY: start
 
 start-container:
