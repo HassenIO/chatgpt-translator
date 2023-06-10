@@ -6,6 +6,10 @@ install:
 	@pip install -r dev-requirements.txt
 .PHONY: install
 
+format:
+	@black .
+.PHONY: format
+
 build:
 	docker build -t chatgpt-translator:$(version) .
 .PHONY: build
