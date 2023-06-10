@@ -13,3 +13,7 @@ install:
 install-dev:
 	pip install -r dev-requirements.txt
 .PHONY: .install
+
+start:
+	python3 -m src.main
+.PHONY: .start

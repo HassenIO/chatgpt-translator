@@ -1,1 +1,7 @@
 venv/
+*.egg-info
+__pycache__/
+
+services/
+domains/
+
