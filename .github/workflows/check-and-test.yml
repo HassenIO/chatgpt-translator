@@ -1,4 +1,4 @@
-name: Format Check and Tests
+name: From testing to build
 
 on:
   pull_request:
@@ -29,3 +29,24 @@ jobs:
 
       - name: Run pytest
         run: PYTHONPATH=$(pwd) pytest
+
+  docker-build-and-push:
+    needs: format-check-and-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to AWS ECR
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ${{ secrets.AWS_SECRET_REGION }}
+
+      - name: Build and push Docker image to ECR
+        run: |
+          docker build -t ${{ secrets.ECR_REPOSITORY }}:latest .
+          docker tag ${{ secrets.ECR_REPOSITORY }}:latest ${{ secrets.ECR_REPOSITORY }}:$GITHUB_SHA
+          docker push ${{ secrets.ECR_REPOSITORY }}:$GITHUB_SHA
